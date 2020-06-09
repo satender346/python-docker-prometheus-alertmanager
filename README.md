@@ -1,9 +1,8 @@
 # python-docker-prometheus-alertmanager
 End to end automation to monitor application and send critical notification
 
-# python-docker-prometheus-alertmanager
 
-## Sample python code to monitor an application, export prometheus metric and send alerts using alertmanager in docker environment
+### Sample python code to monitor an application, export prometheus metric and send alerts using alertmanager in docker environment
 
 
 ### This sample code to check if http://www.example.com is running or not, and send an alert
