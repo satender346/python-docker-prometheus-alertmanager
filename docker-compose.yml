@@ -1,0 +1,61 @@
+---
+version: '3.3'
+
+services:
+  prometheus:
+    image: prom/prometheus
+    restart: unless-stopped
+    hostname: prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    networks:
+      - monitoring-network
+    volumes:
+      - ./alerting_scripts/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alerting_scripts/rules/:/etc/prometheus/rules/
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=7d"
+      - "--storage.tsdb.retention.size=512MB"
+    extra_hosts:
+      - "alerting:10.0.1.7"
+      - "alertmanager:10.0.1.7"
+      - "monitoring_scripts:10.0.1.7"
+
+  alertmanager:
+    image: prom/alertmanager
+    restart: unless-stopped
+    hostname: alertmanager
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    networks:
+      - monitoring-network
+    volumes:
+      - ./alerting_scripts/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+      - "--data.retention=120h"
+
+  monitoring_scripts:
+    image: monitoring_scripts:latest
+    restart: unless-stopped
+    hostname: monitoring_scripts
+    container_name: monitoring_scripts
+    ports:
+      - "8000:8000"
+    networks:
+      - monitoring-network
+
+networks:
+  monitoring-network:
+    driver: bridge
+
+volumes:
+  prometheus-data:
+    driver: local
+  alertmanager-data:
+    driver: local
