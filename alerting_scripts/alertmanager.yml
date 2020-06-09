@@ -1,0 +1,25 @@
+# Update below configuration
+global:
+  smtp_smarthost: 'smtps_server_name'
+  smtp_from: 'sender@example.com'
+  smtp_require_tls: false
+
+templates:
+- '/etc/alertmanager/templates/*.tmpl'
+
+route:
+  group_by: ['alertname']
+  group_wait: 2m
+  group_interval: 2m
+  repeat_interval: 24h
+  receiver: 'nagios-mails'
+receivers:
+- name: 'nagios-mails'
+  email_configs:
+  - to: 'receiver@example.com'
+inhibit_rules:
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname']

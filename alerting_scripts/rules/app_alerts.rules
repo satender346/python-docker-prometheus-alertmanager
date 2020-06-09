@@ -1,0 +1,8 @@
+groups:
+- name: App alerts
+  rules:
+  - alert: Apps alerts
+    expr: apps_alerts_total == 1
+    for: 5m
+    labels:
+      severity: critical
