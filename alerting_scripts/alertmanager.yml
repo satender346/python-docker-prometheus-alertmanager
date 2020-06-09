@@ -1,7 +1,7 @@
 # Update below configuration
 global:
-        smtp_smarthost: 'smtps_server_name:25'
-  smtp_from: 'sender@example.com'
+        smtp_smarthost: 'smtps_server_name:25' # Update SMTP server details
+  smtp_from: 'sender@example.com' # Update email from information
   smtp_require_tls: false
 
 templates:
@@ -12,11 +12,11 @@ route:
   group_wait: 2m
   group_interval: 2m
   repeat_interval: 24h
-  receiver: 'nagios-mails'
+  receiver: 'receiver-mails'
 receivers:
-- name: 'nagios-mails'
+- name: 'receiver-mails'
   email_configs:
-  - to: 'receiver@example.com'
+  - to: 'receiver@example.com'  #Update all receivers email id
 inhibit_rules:
   - source_match:
       severity: 'critical'
