@@ -1,6 +1,6 @@
 # Update below configuration
 global:
-  smtp_smarthost: 'smtps_server_name'
+        smtp_smarthost: 'smtps_server_name:25'
   smtp_from: 'sender@example.com'
   smtp_require_tls: false
 
