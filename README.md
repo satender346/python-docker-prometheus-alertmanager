@@ -5,7 +5,7 @@ End to end automation to monitor application and send critical notification
 ### Sample python code to monitor an application, export prometheus metric and send alerts using alertmanager in docker environment
 
 
-### This sample code to check if http://www.example.com is running or not, and send an alert
+#### This sample code to check if http://www.example.com is running or not, and send an alert
 
 ### Setup
 
